@@ -17,20 +17,28 @@
 package com.example.android.materialdesigncodelab;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private DrawerLayout mDrawLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,41 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v,"Show Snackbar!",Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        mDrawLayout= (DrawerLayout) findViewById(R.id.drawer);
+        ActionBar supportActionBar = getSupportActionBar();
+        if(supportActionBar!=null){
+            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getGroupId()){
+                    case R.id.menu_home:
+                        // TODO: 17-4-20
+                        break;
+                    case R.id.menu_favorite:
+                        // TODO: 17-4-20
+                        break;
+                    case R.id.menu_mark:
+                        // TODO: 17-4-20
+                        break;
+                }
+                item.setChecked(true);
+                mDrawLayout.closeDrawers();
+                return true;
+            }
+        });
     }
 
     private void setupViewPage(ViewPager viewPager){
@@ -70,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if(id==android.R.id.home){
+            mDrawLayout.openDrawer(GravityCompat.START);
         }
         return super.onOptionsItemSelected(item);
     }
