@@ -1,8 +1,7 @@
+#Android
 .gradle
-local.properties
-.DS_Store
-build/
-captures/
-.idea/
+/local.properties
+/.idea/
+/build
 *.iml
-Í
+build
