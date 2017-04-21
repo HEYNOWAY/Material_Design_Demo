@@ -3,5 +3,6 @@
 /local.properties
 /.idea/
 /build
+/Android_Design/build
 *.iml
-build
+
